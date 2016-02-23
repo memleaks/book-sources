@@ -1,0 +1,21 @@
+In Chapter 3, "Cooperating Commands" pp. 44-45:
+
+The value stored in 'last-command' is not necessarily a symbol, so calls to
+
+  (get last-command...)
+
+can fail.  If the user invokes an unnamed command (e.g., because an
+anonymous function appears in a keymap), `last-command' will be set to the
+lambda list of the anonymous
+function.  In that case, `get' fails because only symbols, not lambda lists
+or anything else, have properties you can `get'.
+
+The fix is to replace any occurrence of
+
+  (get last-command ...)
+
+with
+
+  (and (symbolp last-command)
+       (get last-command ...))
+
