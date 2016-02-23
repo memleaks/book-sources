@@ -1,0 +1,11 @@
+*.swp
+/java/build
+GeoLiteCity-*.csv
+.idea
+*.iml
+node_modules
+bin/
+obj/
+*.suo
+*.ncb
+packages/

@@ -1,0 +1,9 @@
+[submodule "joy-of-clojure/original"]
+	path = joy-of-clojure/original
+	url = git://github.com/joyofclojure/book-source.git
+[submodule "erlang-otp-in-action/original"]
+	path = erlang-otp-in-action/original
+	url = git://github.com/erlware/Erlang-and-OTP-in-Action-Source.git
+[submodule "redis-in-action/original"]
+	path = redis-in-action/original
+	url = git://github.com/josiahcarlson/redis-in-action.git
