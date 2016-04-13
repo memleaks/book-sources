@@ -1,0 +1,26 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".txt" #>
+<#
+	PushIndent("L1 ");
+#>
+Item A
+<#
+	PushIndent("L2 ");
+#>
+SubItem A1
+SubItem A2
+SubItem A3
+<#
+	PopIndent();
+#>
+Item B
+<#
+	PushIndent("L2 ");
+	for (int ndx = 1; ndx <= 3; ndx++)
+		WriteLine("SubItem B" + ndx);
+	//ClearIndent();
+	PopIndent();
+	PopIndent();
+	PopIndent();
+#>
+Done.

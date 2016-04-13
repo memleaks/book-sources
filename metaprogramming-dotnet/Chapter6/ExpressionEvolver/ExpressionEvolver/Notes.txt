@@ -1,0 +1,67 @@
+﻿If the EvolvingLine has NaNs, Infinities as the output, don't include those points in the graph.
+
+Give the ability to configure reduction (i.e. turn it off (?))
+
+
+Generation 84,95533,47.7665,65, a => (((7.1408703357412 / ((7.2501411221817 - a) - a)) / (7.1408703357412 - a)) + (((50
+/ (7.1408703357412 - a)) / (7.1408703357412 - a)) + 51.3237900077244))
+
+Look to see to reduce this.
+
+
+Generation 131,118424,59.212,70, a => (((7.1408703357412 / ((7.2501411221817 - a) - a)) / (7.1408703357412 - ((50 / (7.1
+408703357412 - a)) / (7.1408703357412 - a)))) + (((50 / ((((((58.818931012259 / (7.1408703357412 - a)) / (51 - a)) / (7.
+1408703357412 - a)) + (((51 / (51.5 - a)) / (((-0.16271272719601 / (((a / (51.5 - a)) / 7.1408703357412) + 51.5)) / (7.1
+408703357412 - ((7.1408703357412 / (7.1408703357412 - ((a / (51.5 - a)) / (((7.1408703357412 / (50 / (7.1408703357412 -
+(51.5 - a)))) / 7.1408703357412) + a)))) / (7.1408703357412 - a)))) + (7.1408703357412 / ((7.2501411221817 - a) - a))))
++ 51.5)) / 7.1408703357412) - a)) / (7.1408703357412 - (7.1408703357412 - (7.1408703357412 - a)))) + 51.3237900077244))
+
+Why isn't the subtracts on the last line getting reduced?
+
+
+Wondering if the size of the expression should be figured into the fitness function. IOW 
+
+fitness = (overall fitness of results against computed results) - (expression size)
+
+So an evolved function that scored 12 but has 6 nodes (12 - 6 = 6) would score "less" than a function that got 10 right but is 3 nodes 
+in length (10 - 3 = 7). This would favor smaller expressions - "less is more".
+
+
+With adding a potential 0 into things, then...
+
+	For divide, if a zero is on "top", replace with zero. If on "bottom", we're in trouble.
+
+Generation 2,49658,24.829,59, a => (59 - ((51 / ((a * a) + 8)) + (0 / ((a * a) + 8))))
+
+
+If there is a divide, and one side is a constant, and the other side is a divide with one leaf being a constant,
+	reduce.
+	
+	((a / b) / c) where c and b are constants, => (a / (b * c)) => a / d
+	((a / b) / c) where c and a are constants, => (a / (b * c)) => a / d
+
+
+Need to handle if a function always gives NaN or Infinities for all its result set. Example:
+
+a => (1000 / Math.Pow((a - 24), 0.5) * (Math.Pow(5, a)))
+
+Maybe eliminate the function outright? UnstableFunctionException?
+
+
+Sometime I saw an Infinity pop up into the equation. That's just flat-out wrong, gotta fix that.
+
+
+More constant reduction
+	if add, and what's on one side is a constant, and what's on the other side is an add or subtract with one of those sides being a constant, add the two constants together (respect the signs)
+	if subtract, and what's on one side is a constant, and what's on the other side is an add or subtract with one of those sides being a constant, subract the two constants together (respect the signs)
+	
+Use this:
+
+Generation 167,118480,59.24,61, a => (-85 + (63 - (44 + (-79 - (37 - (-51 / ((a - -7) - a)))))))
+
+and this:
+
+Generation 31,132512,66.256,80, a => ((a + 54) - (-94 / (55.0243902439024 * (43.9148936170213 - (55 + ((59.0888888888889
+ + a) - 76))))))
+ 
+for good tests of complex behavior.

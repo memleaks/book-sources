@@ -1,0 +1,28 @@
+//ncc -r Nemerle.Compiler.dll -t:dll Trace.n -o Trace.dll
+using Nemerle;
+using Nemerle.Compiler;
+using Nemerle.Compiler.Parsetree.ClassMember;
+using System;
+
+[MacroUsage(MacroPhase.WithTypedMembers, MacroTargets.Class, 
+	Inherited = true, AllowMultiple = false)]
+macro Trace (type : TypeBuilder)
+{
+	foreach (method : IMethod in type.GetMethods(
+		BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static))
+	{
+		match(method) 
+		{
+			| builtMethod is MethodBuilder =>
+				builtMethod.Body =
+					<[ 
+						Console.Out.WriteLine(string.Format(
+							"Method {0} entered.", $(method.Name : string)));
+						$(builtMethod.Body);
+						Console.Out.WriteLine(string.Format(
+							"Method {0} finished.", $(method.Name : string)));
+					]>;
+			| _ => { }
+		}
+	}
+}

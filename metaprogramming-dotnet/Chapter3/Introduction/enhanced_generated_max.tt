@@ -1,0 +1,75 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Linq" #>
+<#
+  Type[] types = new[]
+  {
+    typeof(int),
+    typeof(float),
+    typeof(double),
+    typeof(string)
+  };
+#>
+namespace Ch3
+{
+  using System;
+  public static class enhanced_generated_max
+  {
+<#
+  foreach (var type in types)
+  {
+#>
+    public static <#= type.FullName #> of(<#= type.FullName #> left, <#= type.FullName #> right)
+    {
+<#
+    BindingFlags flags =
+      BindingFlags.Static | BindingFlags.Public;
+    MethodInfo lessThan =
+      (from method in type.GetMethods(flags)
+        let parameters = method.GetParameters()
+        where method.Name == "op_LessThan"
+              && parameters != null
+              && parameters.Length == 2
+              && parameters[0].ParameterType == type
+              && parameters[1].ParameterType == type
+        select method).FirstOrDefault();
+    if (lessThan != null)
+    {
+#>
+      return (left < right) ? right : left;
+<#
+    }
+    else
+      {
+      Type generic_icomparable =
+        (from intf in type.GetInterfaces()
+         let args = intf.GetGenericArguments()
+         where intf.Name == "IComparable`1"
+               && args != null
+               && args[0].Equals(type)
+         select intf).FirstOrDefault();
+      if (generic_icomparable != null || type is IComparable)
+      {
+#>
+      return left.CompareTo(right) < 0 ? right : left;
+<#
+      }
+      else
+      {
+#>
+      throw new ApplicationException(
+        "Type <#= type.FullName #> must override the less-than operator for " +
+        "its type or implement one of the IComparable or " +
+        "IComparable<<#= type.FullName #>> interfaces.");
+<#
+      }
+    }
+#>
+    }
+<#
+  }
+#>
+  }
+}

@@ -1,0 +1,59 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".txt" #>
+<#@ import namespace="System.Text" #>
+<#= ExpandedTypeName(this.GetType())#> Information:
+<#
+  PushIndent("  ");
+  WriteLine("Properties:");
+  PushIndent("  ");
+
+  foreach (var pi in this.GetType().GetProperties())
+  {
+    Write("{0} {1} {{",
+	  ExpandedTypeName(pi.PropertyType), pi.Name);
+    WriteLine("{0}{1} }}",
+	  pi.CanRead ? " get;" : "",
+	  pi.CanWrite ? " set;" : "");
+  }
+
+  PopIndent();
+  WriteLine("Methods:");
+  PushIndent("  ");
+
+  foreach (var mi in this.GetType().GetMethods())
+  {
+    Write("{0} {1}(",
+	  ExpandedTypeName(mi.ReturnType), mi.Name);
+    var parms = mi.GetParameters();
+    if (parms != null)
+    {
+      for (int ndx = 0; ndx < parms.Length; ndx++)
+      {
+        Write((ndx > 0) ? ", {0} {1}" : "{0} {1}",
+          ExpandedTypeName(parms[ndx].ParameterType),
+		  parms[ndx].Name);
+      }
+    }
+    WriteLine(");");
+  }
+#>
+<#+
+  public static string ExpandedTypeName(Type t)
+  {
+    var result = new StringBuilder();
+    if (!t.IsGenericType)
+	  result.Append(t.Name);
+	else
+    {
+      result.Append(t.Name.Substring(0,
+	    t.Name.IndexOf('`')));
+      result.Append("<");
+      int ndx = 0;
+      foreach (var tp in t.GetGenericArguments())
+        result.AppendFormat(
+		  (ndx++ > 0) ? ", {0}" : "{0}", tp.Name);
+      result.Append(">");
+    }
+    return result.ToString();
+  }
+#>

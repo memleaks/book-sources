@@ -1,0 +1,7 @@
+// ncc -r Nemerle.Compiler.dll -t:dll Power.n -o Power.dll
+using System;
+
+macro @^^(x, y) 
+	syntax(x, "^^", y) {
+		<[ Math.Pow($x, $y) ]>
+}

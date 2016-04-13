@@ -1,0 +1,13 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".vb" #>
+<#
+  string msg = "Hello, world!";
+  int n = 0;
+#>
+Module Module1
+  Sub Main()
+    Console.WriteLine("<# while (n < msg.Length)
+      Write(msg[n++].ToString());
+    #>")
+  End Sub
+End Module

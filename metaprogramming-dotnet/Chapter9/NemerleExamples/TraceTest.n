@@ -1,0 +1,20 @@
+//ncc -r Trace.dll -t:exe TraceTest.n -o TraceTest.exe
+
+using System;
+
+module Program
+{
+	[Trace]
+	public class TracedTest
+	{
+		public TraceMe() : void
+		{
+			Console.Out.WriteLine("I should have been traced.");
+		}
+	}
+	
+	Main() : void
+	{
+		TracedTest().TraceMe();
+	}
+}

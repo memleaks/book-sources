@@ -1,0 +1,8 @@
+﻿.Lambda #Lambda1<System.Func`3[System.Int32,System.Int32,System.Int32]>(
+    System.Int32 $var1,
+    System.Int32 $var2) {
+    .Block() {
+        .DebugInfo(AddDebug.txt: 9, 4 - 9, 16);
+        $var1 + $var2
+    }
+}

@@ -1,0 +1,49 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+  string className = "DynamicCar";
+  bool generateCtor = true;
+  var properties = new List<Tuple<Type, string, bool>>()
+    {
+      Tuple.Create(typeof(string), "Make", true),
+      Tuple.Create(typeof(string), "Model", true),
+      Tuple.Create(typeof(int), "Year", true),
+      Tuple.Create(typeof(int), "MPG", false)
+    };
+#>
+public class <#= className #>
+{
+<#
+  foreach (var property in properties)
+  {
+#>
+  public <#= property.Item1 #> <#= 
+    property.Item2 #> { get; <#= 
+	property.Item3 ? "" : "private " #>set; }
+<#
+  }
+
+  if (generateCtor)
+  {
+#>
+  public <#= className #>(<#
+    for (int ndx = 0; ndx < properties.Count; ndx++)
+      Write("{0}{1} {2}",
+        (ndx > 0) ? ", " : "",
+        properties[ndx].Item1,
+        properties[ndx].Item2,
+        properties[ndx].Item3);
+#>)
+  {
+<#
+    foreach (var property in properties)
+    {
+#>
+    this.<#= property.Item2 #> = <#= property.Item2 #>;
+<#
+    }
+  }
+#>
+  }
+}

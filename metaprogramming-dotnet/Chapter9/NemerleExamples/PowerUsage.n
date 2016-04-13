@@ -1,0 +1,2 @@
+// ncc -r Power.dll -t:exe PowerUsage.n -o PowerUsage.exe
+System.Console.WriteLine (3.0 ^^ 5.0);

@@ -1,0 +1,27 @@
+﻿GeneratedTextTransformation Information:
+  Properties:
+    CompilerErrorCollection Errors { get; }
+    String CurrentIndent { get; }
+    IDictionary<String, Object> Session { get; set; }
+  Methods:
+    String TransformText();
+    String ExpandedTypeName(Type t);
+    CompilerErrorCollection get_Errors();
+    String get_CurrentIndent();
+    IDictionary<String, Object> get_Session();
+    Void set_Session(IDictionary<String, Object> value);
+    Void Initialize();
+    Void Dispose();
+    Void Write(String textToAppend);
+    Void WriteLine(String textToAppend);
+    Void Write(String format, Object[] args);
+    Void WriteLine(String format, Object[] args);
+    Void Error(String message);
+    Void Warning(String message);
+    Void PushIndent(String indent);
+    String PopIndent();
+    Void ClearIndent();
+    String ToString();
+    Boolean Equals(Object obj);
+    Int32 GetHashCode();
+    Type GetType();

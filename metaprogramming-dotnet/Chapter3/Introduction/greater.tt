@@ -1,0 +1,51 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#
+  Type[] types_to_generate = new[]
+  {
+    typeof(object),  typeof(bool),    typeof(byte),
+    typeof(char),    typeof(decimal), typeof(double),
+    typeof(float),   typeof(int),     typeof(long),
+    typeof(sbyte),   typeof(short),   typeof(string),
+    typeof(uint),    typeof(ulong),   typeof(ushort)
+  };
+#>
+using System;
+public static class greater
+{
+<#
+  foreach (var type in types_to_generate)
+  {
+#>
+  public static <#= type.Name #> of(<#= type.Name #> left, <#= type.Name #> right)
+  {
+<#
+    Type icomparable =
+      (from intf in type.GetInterfaces() where
+        typeof(IComparable<>)
+          .MakeGenericType(type).IsAssignableFrom(intf)
+        ||
+        typeof(IComparable).IsAssignableFrom(intf)
+      select intf).FirstOrDefault();
+    if (icomparable != null)
+    {
+#>
+    return left.CompareTo(right) < 0 ? right : left;
+<#
+    }
+    else
+    {
+#>
+    throw new ApplicationException(
+      "Type <#= type.Name #> must implement one of the " +
+      "IComparable or IComparable<<#= type.Name #>> interfaces.");
+<#
+    }
+#>
+  }
+<#
+  }
+#>
+}

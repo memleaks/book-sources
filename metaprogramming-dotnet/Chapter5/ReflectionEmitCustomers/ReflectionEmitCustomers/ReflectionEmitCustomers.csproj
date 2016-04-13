@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CF2AD61B-78A5-4407-8701-4F6409B61C5C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReflectionEmitCustomers</RootNamespace>
+    <AssemblyName>ReflectionEmitCustomers</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AssemblyVerifier">
+      <HintPath>..\packages\AssemblyVerifier.4.1.0.0\lib\.NetFramework 4.0\AssemblyVerifier.dll</HintPath>
+    </Reference>
+    <Reference Include="Spackle">
+      <HintPath>..\packages\Spackle.5.0.0.0\lib\.NetFramework 4.0\Spackle.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Builders\IToStringBuilder.cs" />
+    <Compile Include="Builders\ToStringDynamicMethodBuilder.cs" />
+    <Compile Include="Builders\ToStringReflectionEmitBuilder.cs" />
+    <Compile Include="CustomerDependencyInjected.cs" />
+    <Compile Include="CustomerDynamicMethod.cs" />
+    <Compile Include="CustomerReflectionEmit.cs" />
+    <Compile Include="CustomerReflectionEmitWithDebugging.cs" />
+    <Compile Include="CustomerReflectionEmitWithVerification.cs" />
+    <Compile Include="Extensions\Descriptors\Descriptor.cs" />
+    <Compile Include="Extensions\Descriptors\MethodDescriptor.cs" />
+    <Compile Include="Extensions\Descriptors\TypeDescriptor.cs" />
+    <Compile Include="Extensions\ILGeneratorExtensions.cs" />
+    <Compile Include="Extensions\MemberInfoExtensions.cs" />
+    <Compile Include="Extensions\MethodBaseExtensions.cs" />
+    <Compile Include="Extensions\ReflectionEmitMethodGenerator.cs" />
+    <Compile Include="Extensions\ReflectionEmitWithDebuggingMethodGenerator.cs" />
+    <Compile Include="Extensions\ToStringILGenerator.cs" />
+    <Compile Include="Extensions\ToStringViaDynamicMethodExtensions.cs" />
+    <Compile Include="Extensions\ToStringViaExpressionsExtensions.cs" />
+    <Compile Include="Extensions\ToStringViaReflectionEmitExtensions.cs" />
+    <Compile Include="Extensions\ToStringViaReflectionEmitWithDebuggingExtensions.cs" />
+    <Compile Include="Extensions\ToStringViaReflectionEmitWithVerificationExtensions.cs" />
+    <Compile Include="Extensions\ToStringViaReflectionExtensions.cs" />
+    <Compile Include="Extensions\ToStringWithDebuggingILGenerator.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Customers\Customers\Customers.csproj">
+      <Project>{24EABD41-3399-40E8-A0CF-948B229B65FD}</Project>
+      <Name>Customers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

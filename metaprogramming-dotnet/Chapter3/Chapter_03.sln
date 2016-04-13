@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Introduction", "Introduction\Introduction.csproj", "{1B315346-31DE-4936-ADC0-47AD5B63225A}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MixingLanguages", "MixingLanguages\MixingLanguages.vbproj", "{BC0EABAB-8DB6-4AD7-9A80-DB5B02392053}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs06
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Introduction\\Introduction.csproj
+		SccProjectName1 = Introduction
+		SccLocalPath1 = Introduction
+		SccProjectUniqueName2 = MixingLanguages\\MixingLanguages.vbproj
+		SccProjectName2 = MixingLanguages
+		SccLocalPath2 = MixingLanguages
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B315346-31DE-4936-ADC0-47AD5B63225A}.Debug|x86.ActiveCfg = Debug|x86
+		{1B315346-31DE-4936-ADC0-47AD5B63225A}.Debug|x86.Build.0 = Debug|x86
+		{1B315346-31DE-4936-ADC0-47AD5B63225A}.Release|x86.ActiveCfg = Release|x86
+		{1B315346-31DE-4936-ADC0-47AD5B63225A}.Release|x86.Build.0 = Release|x86
+		{BC0EABAB-8DB6-4AD7-9A80-DB5B02392053}.Debug|x86.ActiveCfg = Debug|x86
+		{BC0EABAB-8DB6-4AD7-9A80-DB5B02392053}.Debug|x86.Build.0 = Debug|x86
+		{BC0EABAB-8DB6-4AD7-9A80-DB5B02392053}.Release|x86.ActiveCfg = Release|x86
+		{BC0EABAB-8DB6-4AD7-9A80-DB5B02392053}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
