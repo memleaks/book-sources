@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo --- pull changes
+git pull
+
 echo --- update submodules
 git submodule init
 git submodule sync
